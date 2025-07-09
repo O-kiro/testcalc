@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kalkulator Estetik Rex</title>
+  <style>
+    body {
+      background: #d1d8be;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background: #D1D8BE;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      width: 270px;
+    }
+
+    .expression, .result {
+      background: #A7C1A8;
+      color: #2e2e2e;
+      padding: 10px 15px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      text-align: right;
+      margin-bottom: 8px;
+      overflow-x: auto;
+    }
+
+    .result {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #344e41;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 60px);
+      gap: 10px;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 1.2em;
+      background: #A7C1A8;
+      color: #2e2e2e;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #819A91;
+      color: #fff;
+    }
+
+    button.operator {
+      background: #819A91;
+      color: #fff;
+    }
+
+    button.operator:hover {
+      background: #5a6f68;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div id="expression" class="expression">0</div>
+    <div id="result" class="result">= 0</div>
+    <div class="buttons">
+      <button onclick="clearDisplay()">C</button>
+      <button onclick="appendValue('(')">(</button>
+      <button onclick="appendValue(')')">)</button>
+      <button class="operator" onclick="appendValue('/')">÷</button>
+
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button class="operator" onclick="appendValue('*')">×</button>
+
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button class="operator" onclick="appendValue('-')">−</button>
+
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button class="operator" onclick="appendValue('+')">+</button>
+
+      <button onclick="appendValue('0')">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    let expressionDisplay = document.getElementById('expression');
+    let resultDisplay = document.getElementById('result');
+
+    function appendValue(value) {
+      if (expressionDisplay.innerText === "0" || expressionDisplay.innerText === "Error") {
+        expressionDisplay.innerText = value;
+      } else {
+        expressionDisplay.innerText += value;
+      }
+    }
+
+    function clearDisplay() {
+      expressionDisplay.innerText = "0";
+      resultDisplay.innerText = "= 0";
+    }
+
+    function calculate() {
+      try {
+        let expr = expressionDisplay.innerText;
+        let result = eval(expr);
+        resultDisplay.innerText = "= " + result;
+      } catch (e) {
+        resultDisplay.innerText = "= Error";
+        expressionDisplay.innerText = "Error";
+      }
+    }
+  </script>
+</body>
+</html>
